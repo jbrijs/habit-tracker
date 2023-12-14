@@ -53,7 +53,10 @@ class SignUpViewModel(application: Application): AndroidViewModel(application) {
             uiState.errorMessage = "Passwords do not match."
             return
         }
-
-        UserRepository.createUser(uiState.email, uiState.password)
+        try {
+            UserRepository.createUser(uiState.email, uiState.password)
+        } catch (e:Exception) {
+            println(e)
+        }
     }
 }
