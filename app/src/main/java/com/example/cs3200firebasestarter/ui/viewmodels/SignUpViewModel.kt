@@ -5,6 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
+import com.example.cs3200firebasestarter.ui.repositories.SignUpException
 import com.example.cs3200firebasestarter.ui.repositories.UserRepository
 
 class SignUpScreenState {
@@ -55,8 +56,8 @@ class SignUpViewModel(application: Application): AndroidViewModel(application) {
         }
         try {
             UserRepository.createUser(uiState.email, uiState.password)
-        } catch (e:Exception) {
-            println(e)
+        } catch (e:SignUpException) {
+            uiState.errorMessage = e.message ?: "Something went wrong. Please try again."
         }
     }
 }
