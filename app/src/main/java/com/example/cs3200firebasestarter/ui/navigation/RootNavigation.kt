@@ -21,85 +21,79 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RootNavigation() {
-    val navController = rememberNavController()
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry?.destination
-    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    val scope = rememberCoroutineScope()
-    LaunchedEffect(true) {
+  val navController = rememberNavController()
+  val navBackStackEntry by navController.currentBackStackEntryAsState()
+  val currentDestination = navBackStackEntry?.destination
+  val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+  val scope = rememberCoroutineScope()
+  LaunchedEffect(true) {}
 
-    }
-    ModalNavigationDrawer(
-        drawerState = drawerState,
-        drawerContent = {
-            ModalDrawerSheet {
-                Text("Drawer title", modifier = Modifier.padding(16.dp))
-                Divider()
-                NavigationDrawerItem(
-                    label = { Text(text = "Logout") },
-                    selected = false,
-                    onClick = {
-                        UserRepository.logout()
-                        navController.navigate(Routes.launchNavigation.route) {
-                            popUpTo(navController.graph.id) {
-                                inclusive = true
-                            }
-                        }
-                        scope.launch {
-                            drawerState.apply {
-                                close()
-                            }
-                        }
-                    }
-                )
-                // ...other drawer items
-            }
+  ModalNavigationDrawer(
+      drawerState = drawerState,
+      drawerContent = {
+        ModalDrawerSheet {
+          Text("Drawer title", modifier = Modifier.padding(16.dp))
+          Divider()
+          NavigationDrawerItem(
+              label = { Text(text = "Logout") },
+              selected = false,
+              onClick = {
+                UserRepository.logout()
+                navController.navigate(Routes.launchNavigation.route) {
+                  popUpTo(navController.graph.id) { inclusive = true }
+                }
+                scope.launch { drawerState.apply { close() } }
+              })
+          // ...other drawer items
         }
-    ) {
+      }) {
         Scaffold(
             topBar = {
-                if (currentDestination?.hierarchy?.none { it.route == Routes.launchNavigation.route || it.route == Routes.splashScreen.route } == true) {
-                    TopAppBar(
-                        title = { Text(text = "My App")},
-                        navigationIcon = {
-                            IconButton(onClick = {
-                                scope.launch {
-                                    drawerState.apply {
-                                        if (isClosed) open() else close()
-                                    }
-                                }
-                            }) {
-                                Icon(Icons.Default.Menu, contentDescription = "Menu button")
-                            }
-                        }
-                    )
-                }
+              if (currentDestination?.hierarchy?.none {
+                it.route == Routes.launchNavigation.route || it.route == Routes.splashScreen.route
+              } == true) {
+                TopAppBar(
+                    title = { Text(text = "My App") },
+                    navigationIcon = {
+                      IconButton(
+                          onClick = {
+                            scope.launch { drawerState.apply { if (isClosed) open() else close() } }
+                          }) {
+                            Icon(Icons.Default.Menu, contentDescription = "Menu button")
+                          }
+                    })
+              }
             },
             floatingActionButton = {
-                if (currentDestination?.hierarchy?.none { it.route == Routes.launchNavigation.route || it.route == Routes.splashScreen.route } == true){
-                    FloatingActionButton(onClick = {}) {
-                        Icon(imageVector = Icons.Default.Add, contentDescription = "Add Item")
-                    }
+              if (currentDestination?.hierarchy?.none {
+                it.route == Routes.launchNavigation.route || it.route == Routes.splashScreen.route
+              } == true) {
+                FloatingActionButton(onClick = { navController.navigate("habitmodification") }) {
+                  Icon(imageVector = Icons.Default.Add, contentDescription = "Add Item")
                 }
+              }
             },
-
         ) {
-
-            NavHost(
-                navController = navController,
-                startDestination = Routes.splashScreen.route,
-                modifier = Modifier.padding(paddingValues = it)
-            ) {
-                navigation(route = Routes.launchNavigation.route, startDestination = Routes.launch.route) {
-                    composable(route = Routes.launch.route) { LaunchScreen(navController) }
-                    composable(route = Routes.signIn.route) { SignInScreen(navController) }
-                    composable(route = Routes.signUp.route) { SignUpScreen(navController) }
-                }
-                navigation(route = Routes.appNavigation.route, startDestination = Routes.home.route) {
-                    composable(route = Routes.home.route) { HomeScreen(navController) }
-                }
+          NavHost(
+              navController = navController,
+              startDestination = Routes.splashScreen.route,
+              modifier = Modifier.padding(paddingValues = it)) {
+                navigation(
+                    route = Routes.launchNavigation.route, startDestination = Routes.launch.route) {
+                      composable(route = Routes.launch.route) { LaunchScreen(navController) }
+                      composable(route = Routes.signIn.route) { SignInScreen(navController) }
+                      composable(route = Routes.signUp.route) { SignUpScreen(navController) }
+                    }
+                navigation(
+                    route = Routes.appNavigation.route, startDestination = Routes.home.route) {
+                      composable(route = Routes.home.route) { HomeScreen(navController) }
+                      composable(route = "habitmodification?id={id}") {
+                        HabitModificationScreen(
+                            navController, navBackStackEntry?.arguments?.getString("id").toString())
+                      }
+                    }
                 composable(route = Routes.splashScreen.route) { SplashScreen(navController) }
-            }
+              }
         }
-    }
+      }
 }

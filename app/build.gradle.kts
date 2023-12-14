@@ -53,6 +53,7 @@ android {
 dependencies {
     implementation("com.google.firebase:firebase-auth-ktx:22.3.0")
   implementation("com.google.firebase:firebase-auth:22.3.0")
+  implementation("com.google.firebase:firebase-firestore:24.10.0")
   val navVersion = "2.7.6"
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.1")
     implementation("androidx.navigation:navigation-compose:$navVersion")
