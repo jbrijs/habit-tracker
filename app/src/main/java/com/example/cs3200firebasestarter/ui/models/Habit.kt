@@ -1,11 +1,11 @@
 package com.example.cs3200firebasestarter.ui.models
 
 data class Habit(
-  val id: String?,
-  val userId: String?,
-  val title: String?,
-  val completed: Boolean?,
-  val doIt: Boolean?
+  val id: String? = null,
+  val userId: String? = null,
+  val title: String? = null,
+  val completed: Boolean? = null,
+  val doIt: Boolean? = null
 
 ) {
 }

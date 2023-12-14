@@ -50,7 +50,7 @@ fun HabitModificationScreen(navHostController: NavHostController, id: String?) {
               onClick = {
                 scope.launch {
                   viewModel.saveHabit()
-                  println("habit Saved")
+                  navHostController.navigate("home")
                 }
               },
               elevation = null) {

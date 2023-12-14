@@ -1,26 +1,21 @@
 package com.example.cs3200firebasestarter.ui.screens
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-
+import com.example.cs3200firebasestarter.ui.components.HabitListItem
+import com.example.cs3200firebasestarter.ui.viewmodels.HabitsViewModel
 
 @Composable
 fun HomeScreen(navHostController: NavHostController) {
+  val viewModel: HabitsViewModel = viewModel()
+  val state = viewModel.uiState
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.SpaceAround
-    ) {
-        Text(
-            text = "Home Screen!",
-            modifier = Modifier.fillMaxWidth(),
-            style = MaterialTheme.typography.headlineLarge,
-            textAlign = TextAlign.Center
-        )
-    }
+  LaunchedEffect(true) { viewModel.getHabits() }
+  LazyColumn {
+    items(state.habits, key = { it.id!! }) { HabitListItem(habit = it) }
+  }
 }
