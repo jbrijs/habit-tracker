@@ -1,6 +1,7 @@
 package com.example.cs3200firebasestarter.ui.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -22,34 +23,36 @@ class HabitModificationViewModel(application: Application) : AndroidViewModel(ap
   val uiState = HabitModificationScreenState()
   var id: String? = null
 
-  suspend fun setUpInitialState(id: String?) {
-    if (id == null || id == "new") return
-    this.id = id
-    val habit = HabitRepository.getHabits().find{it.id == id} ?: return
-    uiState.title = habit.title ?: ""
-    uiState.completed = habit.completed ?: false
-    uiState.doIt = habit.doIt ?: true
-  }
+//  suspend fun setUpInitialState(id: String?) {
+//    if (id == null || id == "new") return
+//    this.id = id
+//    val habit = HabitRepository.getHabits().find{it.id == id} ?: return
+//    uiState.title = habit.title ?: ""
+//    uiState.completed = habit.completed ?: false
+//    uiState.doIt = habit.doIt ?: true
+//  }
   suspend fun saveHabit() {
     uiState.errorMessage = ""
     uiState.titleError = false
 
     if (uiState.title.isEmpty()) {
       uiState.titleError = true
-      uiState.errorMessage = "Title cannot be black"
+      uiState.errorMessage = "Title cannot be blank"
       return
     }
 
-    if (id == null) {
-      HabitRepository.createHabit(uiState.title, uiState.completed, uiState.doIt)
-    } else {
-      val habit = HabitRepository.getHabits().find { it.id == id }
-      if (habit != null) {
-        HabitRepository.updateHabit(
-            habit.copy(title = uiState.title, completed = uiState.completed, doIt = uiState.doIt))
-      }
-    }
+//    if (id == null) {
+//      HabitRepository.createHabit(uiState.title, uiState.doIt)
+//      Log.e("Habit", "habit was created")
+//    } else {
+//      val habit = HabitRepository.getHabits().find { it.id == id }
+//      if (habit != null) {
+//        HabitRepository.updateHabit(
+//            habit.copy(title = uiState.title, completed = uiState.completed, doIt = uiState.doIt))
+//      }
+//    }
 
     uiState.saveSuccess = true
+    HabitRepository.createHabit(uiState.title, uiState.doIt)
   }
 }
