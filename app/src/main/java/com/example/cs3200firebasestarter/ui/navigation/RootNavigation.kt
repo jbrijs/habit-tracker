@@ -66,7 +66,9 @@ fun RootNavigation() {
             },
             floatingActionButton = {
               if (currentDestination?.hierarchy?.none {
-                it.route == Routes.launchNavigation.route || it.route == Routes.splashScreen.route
+                it.route == Routes.launchNavigation.route ||
+                    it.route == Routes.splashScreen.route ||
+                    it.route == Routes.habitModification.route
               } == true) {
                 FloatingActionButton(onClick = { navController.navigate("habitmodification") }) {
                   Icon(imageVector = Icons.Default.Add, contentDescription = "Add Item")
@@ -87,7 +89,7 @@ fun RootNavigation() {
                 navigation(
                     route = Routes.appNavigation.route, startDestination = Routes.home.route) {
                       composable(route = Routes.home.route) { HomeScreen(navController) }
-                      composable(route = "habitmodification?id={id}") {
+                      composable(route = Routes.habitModification.route) {
                         HabitModificationScreen(
                             navController, navBackStackEntry?.arguments?.getString("id").toString())
                       }
