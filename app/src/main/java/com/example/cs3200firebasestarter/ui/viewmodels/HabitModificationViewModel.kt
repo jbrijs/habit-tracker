@@ -52,7 +52,8 @@ class HabitModificationViewModel(application: Application) : AndroidViewModel(ap
 //      }
 //    }
 
-    uiState.saveSuccess = true
+
     HabitRepository.createHabit(uiState.title, uiState.doIt)
+    uiState.saveSuccess = true
   }
 }

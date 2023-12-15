@@ -30,11 +30,11 @@ fun HabitModificationScreen(navHostController: NavHostController, id: String?) {
   val state = viewModel.uiState
 
 //  LaunchedEffect(true) { viewModel.setUpInitialState(id) }
-//  LaunchedEffect(state.saveSuccess) {
-//    if (state.saveSuccess) {
-//      navHostController.navigate("home")
-//    }
-//  }
+  LaunchedEffect(state.saveSuccess) {
+    if (state.saveSuccess) {
+      navHostController.navigate("home")
+    }
+  }
   Column {
     Surface {
       Column {
@@ -50,7 +50,6 @@ fun HabitModificationScreen(navHostController: NavHostController, id: String?) {
               onClick = {
                 scope.launch {
                   viewModel.saveHabit()
-                  navHostController.navigate("home")
                 }
               },
               elevation = null) {
