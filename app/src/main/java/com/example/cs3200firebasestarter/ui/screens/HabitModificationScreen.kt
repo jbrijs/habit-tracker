@@ -23,10 +23,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.cs3200firebasestarter.ui.components.FormField
 import com.example.cs3200firebasestarter.ui.viewmodels.HabitModificationViewModel
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
 import kotlinx.coroutines.launch
 
 @Composable
@@ -44,8 +48,9 @@ fun HabitModificationScreen(navHostController: NavHostController, id: String?) {
   }
   Column(modifier = Modifier.fillMaxHeight().padding(vertical = 100.dp)) {
     Surface(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 25.dp), shadowElevation = 4.dp, color = Color.White
-    ) {
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 25.dp),
+        shadowElevation = 4.dp,
+        color = Color.White) {
           Column(
               modifier = Modifier.padding(12.dp),
           ) {
@@ -78,5 +83,11 @@ fun HabitModificationScreen(navHostController: NavHostController, id: String?) {
                 textAlign = TextAlign.Right)
           }
         }
+    AndroidView(
+        factory = { context -> AdView(context).apply {
+          setAdSize(AdSize.BANNER)
+          adUnitId = "ca-app-pub-3940256099942544/6300978111"
+          loadAd(AdRequest.Builder().build())
+        } }, modifier = Modifier.fillMaxWidth())
   }
 }
