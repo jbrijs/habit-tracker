@@ -16,7 +16,7 @@ object HabitRepository {
         Habit(
             title = title,
             completed = false,
-            doIt = doIt,
+            avoid = doIt,
             userId = UserRepository.getCurrentUserId(),
             id = doc.id)
     doc.set(habit).await()

@@ -1,7 +1,6 @@
 package com.example.cs3200firebasestarter.ui.viewmodels
 
 import android.app.Application
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -11,10 +10,8 @@ import com.example.cs3200firebasestarter.ui.repositories.HabitRepository
 class HabitModificationScreenState {
   var title by mutableStateOf("")
   var completed by mutableStateOf(false)
-  var doIt by mutableStateOf(true)
+  var avoid by mutableStateOf(false)
   var titleError by mutableStateOf(false)
-  var completedError by mutableStateOf(false)
-  var doItError by mutableStateOf(false)
   var errorMessage by mutableStateOf("")
   var saveSuccess by mutableStateOf(false)
 }
@@ -29,7 +26,7 @@ class HabitModificationViewModel(application: Application) : AndroidViewModel(ap
     val habit = HabitRepository.getHabits().find{it.id == id} ?: return
     uiState.title = habit.title ?: ""
     uiState.completed = habit.completed ?: false
-    uiState.doIt = habit.doIt ?: true
+    uiState.avoid = habit.avoid ?: false
   }
   suspend fun saveHabit() {
     uiState.errorMessage = ""
@@ -42,17 +39,14 @@ class HabitModificationViewModel(application: Application) : AndroidViewModel(ap
     }
 
     if (id == null) {
-      HabitRepository.createHabit(uiState.title, uiState.doIt)
+      HabitRepository.createHabit(uiState.title, uiState.avoid)
     } else {
       val habit = HabitRepository.getHabits().find { it.id == id }
       if (habit != null) {
         HabitRepository.updateHabit(
-            habit.copy(title = uiState.title, completed = uiState.completed, doIt = uiState.doIt))
+            habit.copy(title = uiState.title, completed = uiState.completed, avoid = uiState.avoid))
       }
     }
-
-
-//    HabitRepository.createHabit(uiState.title, uiState.doIt)
     uiState.saveSuccess = true
   }
 }

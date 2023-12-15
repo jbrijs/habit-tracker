@@ -5,7 +5,7 @@ data class Habit(
   val userId: String? = null,
   val title: String? = null,
   val completed: Boolean? = null,
-  val doIt: Boolean? = null
+  val avoid: Boolean? = null
 
 ) {
 }
