@@ -43,6 +43,7 @@ fun HabitListItem(
     toggle: (checked: Boolean) -> Unit = {},
     onEditPressed: () -> Unit = {}
 ) {
+  val typeOfHabit = if (habit.avoid == true) "DON'T: " else "DO: "
   val habitColor = if (habit.avoid == true) dontColor else doColor
   var isChecked by remember { mutableStateOf(habit.completed ?: false) }
   val backgroundColor by animateColorAsState(
@@ -69,7 +70,7 @@ fun HabitListItem(
               modifier = Modifier.fillMaxWidth()) {
                 habit.title?.let {
                   Text(
-                      text = it,
+                      text = typeOfHabit + it,
                       fontWeight = FontWeight.Bold,
                       modifier = Modifier.padding(vertical = 6.dp, horizontal = 8.dp),
                   )
