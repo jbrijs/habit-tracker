@@ -11,6 +11,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.*
@@ -33,7 +34,7 @@ fun RootNavigation() {
       drawerState = drawerState,
       drawerContent = {
         ModalDrawerSheet {
-          Text("Drawer title", modifier = Modifier.padding(16.dp))
+          Text("Menu", modifier = Modifier.padding(16.dp))
           Divider()
           NavigationDrawerItem(
               label = { Text(text = "Logout") },
@@ -54,13 +55,13 @@ fun RootNavigation() {
                 it.route == Routes.launchNavigation.route || it.route == Routes.splashScreen.route
               } == true) {
                 TopAppBar(
-                    title = { Text(text = "My App") },
+                    title = { Text(text = "Do's and Dont's", color = Color.White) },
                     navigationIcon = {
                       IconButton(
                           onClick = {
                             scope.launch { drawerState.apply { if (isClosed) open() else close() } }
                           }) {
-                            Icon(Icons.Default.Menu, contentDescription = "Menu button")
+                            Icon(Icons.Default.Menu, contentDescription = "Menu button", tint = Color.White)
                           }
                     })
               }

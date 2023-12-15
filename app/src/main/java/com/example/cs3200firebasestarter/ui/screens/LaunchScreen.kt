@@ -18,13 +18,13 @@ fun LaunchScreen(navHostController: NavHostController) {
 
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                text = "Welcome!",
+                text = "Welcome Do's and Dont's!",
                 style = MaterialTheme.typography.headlineMedium,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center
             )
             Text(
-                text = "We guarantee this is best app you will ever use!",
+                text = "We hope this helps habit tracker helps you meet your goals!",
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center
             )

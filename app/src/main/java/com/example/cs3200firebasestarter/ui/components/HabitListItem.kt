@@ -34,7 +34,7 @@ import com.example.cs3200firebasestarter.ui.models.Habit
 
 val doColor = Color(0xFF3F6C51)
 val dontColor = Color(0xFFDD4050)
-val checkedColor = Color(0xFFCDEDF6)
+val checkedColor = Color(0xFFAFCFF8)
 val uncheckedColor = Color.White
 
 @Composable
