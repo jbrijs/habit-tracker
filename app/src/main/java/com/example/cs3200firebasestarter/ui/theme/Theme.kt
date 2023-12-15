@@ -10,6 +10,7 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
@@ -28,6 +29,7 @@ private val LightColorScheme = lightColorScheme(
     tertiary = Tertiary,
     background = Background,
     surface = Primary,
+    surfaceVariant = Color(0xFFCBD5FF)
 
 
     /* Other default colors to override
