@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -20,9 +21,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.cs3200firebasestarter.ui.models.Habit
+import com.example.cs3200firebasestarter.ui.viewmodels.HabitsViewModel
 
 @Composable
-fun HabitListItem(habit: Habit) {
+fun HabitListItem(habit: Habit, toggle: (checked: Boolean) -> Unit = {}) {
   Surface(modifier = Modifier.fillMaxWidth().padding(16.dp), shadowElevation = 4.dp) {
     Column {
       Row(horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
@@ -39,7 +41,8 @@ fun HabitListItem(habit: Habit) {
       Divider()
       Row(horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
         Text(text = "Mark as completed:", modifier = Modifier.padding(8.dp))
-        habit.completed?.let { Switch(checked = it, onCheckedChange = {}, modifier = Modifier.padding(6.dp)) }
+        habit.completed?.let {
+          Checkbox(checked = it, onCheckedChange = {toggle(habit.completed)}, modifier = Modifier.padding(6.dp)) }
       }
     }
   }

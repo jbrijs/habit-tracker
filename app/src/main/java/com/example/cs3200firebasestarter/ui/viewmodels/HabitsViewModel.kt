@@ -19,4 +19,9 @@ class HabitsViewModel(application: Application) : AndroidViewModel(application) 
     uiState._habits.clear()
     uiState._habits.addAll(habits)
   }
+  suspend fun toggleHabitCompletion(habit: Habit){
+    val habitCopy = habit.copy(completed = !(habit.completed ?: false))
+    uiState._habits[uiState._habits.indexOf(habit)] = habitCopy
+    HabitRepository.updateHabit(habitCopy)
+  }
 }

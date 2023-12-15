@@ -10,14 +10,19 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.cs3200firebasestarter.ui.components.HabitListItem
 import com.example.cs3200firebasestarter.ui.viewmodels.HabitsViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen(navHostController: NavHostController) {
   val viewModel: HabitsViewModel = viewModel()
   val state = viewModel.uiState
+  val scope = rememberCoroutineScope()
 
   LaunchedEffect(true) { viewModel.getHabits() }
   LazyColumn(modifier = Modifier.fillMaxHeight().padding(4.dp)) {
-    items(state.habits, key = { it.id!! }) { HabitListItem(habit = it) }
+    items(state.habits, key = { it.id!! }) { habit ->
+      HabitListItem(
+          habit = habit, toggle = { scope.launch { viewModel.toggleHabitCompletion(habit) } })
+    }
   }
 }
