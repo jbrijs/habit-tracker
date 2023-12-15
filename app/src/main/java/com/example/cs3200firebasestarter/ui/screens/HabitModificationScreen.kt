@@ -29,8 +29,9 @@ fun HabitModificationScreen(navHostController: NavHostController, id: String?) {
   val scope = rememberCoroutineScope()
   val state = viewModel.uiState
 
-//  LaunchedEffect(true) { viewModel.setUpInitialState(id) }
+  LaunchedEffect(true) { viewModel.setUpInitialState(id) }
   LaunchedEffect(state.saveSuccess) {
+    println(id)
     if (state.saveSuccess) {
       navHostController.navigate("home")
     }

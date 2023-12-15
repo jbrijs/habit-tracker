@@ -24,7 +24,7 @@ import com.example.cs3200firebasestarter.ui.models.Habit
 import com.example.cs3200firebasestarter.ui.viewmodels.HabitsViewModel
 
 @Composable
-fun HabitListItem(habit: Habit, toggle: (checked: Boolean) -> Unit = {}) {
+fun HabitListItem(habit: Habit, toggle: (checked: Boolean) -> Unit = {}, onEditPressed: () -> Unit = {}) {
   Surface(modifier = Modifier.fillMaxWidth().padding(16.dp), shadowElevation = 4.dp) {
     Column {
       Row(horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
@@ -34,7 +34,7 @@ fun HabitListItem(habit: Habit, toggle: (checked: Boolean) -> Unit = {}) {
               fontWeight = FontWeight.Bold,
               modifier = Modifier.padding(vertical = 6.dp, horizontal = 8.dp))
         }
-        IconButton(onClick = { /*TODO*/}) {
+        IconButton(onClick = { onEditPressed()}) {
           Icon(imageVector = Icons.Default.Edit, contentDescription = "Edit button")
         }
       }

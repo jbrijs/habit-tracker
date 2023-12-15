@@ -10,5 +10,5 @@ object Routes {
     val signUp = Screen("signup")
     val splashScreen = Screen("splashscreen")
     val home = Screen(route = "home")
-    val habitModification = Screen(route="habitmodification?id")
+    val habitModification = Screen(route="habitmodification?id={id}")
 }

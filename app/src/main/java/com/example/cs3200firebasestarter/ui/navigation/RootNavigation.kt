@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.*
+import androidx.navigation.navArgument
 import com.example.cs3200firebasestarter.ui.repositories.UserRepository
 import com.example.cs3200firebasestarter.ui.screens.*
 import kotlinx.coroutines.launch
@@ -89,9 +90,9 @@ fun RootNavigation() {
                 navigation(
                     route = Routes.appNavigation.route, startDestination = Routes.home.route) {
                       composable(route = Routes.home.route) { HomeScreen(navController) }
-                      composable(route = Routes.habitModification.route) {
-                        HabitModificationScreen(
-                            navController, navBackStackEntry?.arguments?.getString("id").toString())
+                      composable(route = Routes.habitModification.route, arguments = listOf(
+                        navArgument("id"){defaultValue = "new"})) {
+                        navBackStackEntry ->  HabitModificationScreen(navController, navBackStackEntry.arguments?.getString("id"))
                       }
                     }
                 composable(route = Routes.splashScreen.route) { SplashScreen(navController) }

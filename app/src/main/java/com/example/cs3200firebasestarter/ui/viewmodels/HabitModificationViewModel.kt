@@ -23,14 +23,14 @@ class HabitModificationViewModel(application: Application) : AndroidViewModel(ap
   val uiState = HabitModificationScreenState()
   var id: String? = null
 
-//  suspend fun setUpInitialState(id: String?) {
-//    if (id == null || id == "new") return
-//    this.id = id
-//    val habit = HabitRepository.getHabits().find{it.id == id} ?: return
-//    uiState.title = habit.title ?: ""
-//    uiState.completed = habit.completed ?: false
-//    uiState.doIt = habit.doIt ?: true
-//  }
+  suspend fun setUpInitialState(id: String?) {
+    if (id == null || id == "new") return
+    this.id = id
+    val habit = HabitRepository.getHabits().find{it.id == id} ?: return
+    uiState.title = habit.title ?: ""
+    uiState.completed = habit.completed ?: false
+    uiState.doIt = habit.doIt ?: true
+  }
   suspend fun saveHabit() {
     uiState.errorMessage = ""
     uiState.titleError = false
@@ -41,19 +41,18 @@ class HabitModificationViewModel(application: Application) : AndroidViewModel(ap
       return
     }
 
-//    if (id == null) {
-//      HabitRepository.createHabit(uiState.title, uiState.doIt)
-//      Log.e("Habit", "habit was created")
-//    } else {
-//      val habit = HabitRepository.getHabits().find { it.id == id }
-//      if (habit != null) {
-//        HabitRepository.updateHabit(
-//            habit.copy(title = uiState.title, completed = uiState.completed, doIt = uiState.doIt))
-//      }
-//    }
+    if (id == null) {
+      HabitRepository.createHabit(uiState.title, uiState.doIt)
+    } else {
+      val habit = HabitRepository.getHabits().find { it.id == id }
+      if (habit != null) {
+        HabitRepository.updateHabit(
+            habit.copy(title = uiState.title, completed = uiState.completed, doIt = uiState.doIt))
+      }
+    }
 
 
-    HabitRepository.createHabit(uiState.title, uiState.doIt)
+//    HabitRepository.createHabit(uiState.title, uiState.doIt)
     uiState.saveSuccess = true
   }
 }

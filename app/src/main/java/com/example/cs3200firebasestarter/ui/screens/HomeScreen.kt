@@ -22,7 +22,9 @@ fun HomeScreen(navHostController: NavHostController) {
   LazyColumn(modifier = Modifier.fillMaxHeight().padding(4.dp)) {
     items(state.habits, key = { it.id!! }) { habit ->
       HabitListItem(
-          habit = habit, toggle = { scope.launch { viewModel.toggleHabitCompletion(habit) } })
+          habit = habit,
+          toggle = { scope.launch { viewModel.toggleHabitCompletion(habit) } },
+          onEditPressed = { navHostController.navigate("habitmodification?id=${habit.id}") })
     }
   }
 }
