@@ -19,6 +19,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -43,7 +44,8 @@ fun HabitModificationScreen(navHostController: NavHostController, id: String?) {
   }
   Column(modifier = Modifier.fillMaxHeight().padding(vertical = 100.dp)) {
     Surface(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 25.dp), shadowElevation = 4.dp) {
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 25.dp), shadowElevation = 4.dp, color = Color.White
+    ) {
           Column(
               modifier = Modifier.padding(12.dp),
           ) {
