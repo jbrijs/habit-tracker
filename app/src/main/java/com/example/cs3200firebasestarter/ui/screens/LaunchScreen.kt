@@ -18,7 +18,7 @@ fun LaunchScreen(navHostController: NavHostController) {
 
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                text = "Welcome Do's and Dont's!",
+                text = "Welcome to Do's and Dont's!",
                 style = MaterialTheme.typography.headlineMedium,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center
